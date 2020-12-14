@@ -29,8 +29,11 @@
             }
         },
         methods: {
-            test () {
-                console.log('test')
+            test (el) {
+                const file = el.target.files[0]
+                let formData = new FormData()
+                formData.append('smfile', file)
+                console.log('formData', file, formData)
                 this.$refs.markdown.insertContent('\n![image](imgUrl)');
             },
             onReady(data) {

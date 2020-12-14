@@ -84,6 +84,7 @@
             </li>
             <li v-if="tools.image" name="图片">
                 <span @click="insertImage" class="iconfont icon-img"></span>
+                <input type="file" style="display:none;" ref="uploadImg" @change="transpondFile($event)"/>
             </li>
             <li v-if="tools.uploadImage" name="本地图片">
                 <span @click="chooseImage" class="iconfont icon-upload-img"></span>
