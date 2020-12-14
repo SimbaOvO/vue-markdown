@@ -98,7 +98,8 @@ export default {
             this.insertContent('\n[link](href)');
         },
         insertImage() {// 插入图片
-            this.insertContent('\n![image](imgUrl)');
+            this.$emit('upload')
+            // this.insertContent('\n![image](imgUrl)');
         },
         insertTable() {// 插入表格
             this.insertContent(

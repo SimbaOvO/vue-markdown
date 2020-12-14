@@ -1,7 +1,7 @@
 
-import simple from './simple';
-import pro from './pro';
-import preview from './preview';
+import simple from './src/simple';
+import pro from './src/pro';
+import preview from './src/preview';
 
 export default simple;
 export const MarkdownPro = pro ;
