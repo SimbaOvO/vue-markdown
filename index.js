@@ -1,6 +1,6 @@
 
-import simple from './simple';
-import pro from './pro';
+import simple from './src/simple';
+import pro from './src/pro';
 import preview from './preview';
 
 export default simple;
