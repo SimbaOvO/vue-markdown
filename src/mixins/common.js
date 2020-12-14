@@ -97,8 +97,12 @@ export default {
         insertLink() {// 插入链接
             this.insertContent('\n[link](href)');
         },
+        // 转发File对象
+        transpondFile (el) {
+            this.$emit('upload', el)
+        },
         insertImage() {// 插入图片
-            this.$emit('upload')
+            this.$refs.uploadImg.click()
             // this.insertContent('\n![image](imgUrl)');
         },
         insertTable() {// 插入表格
