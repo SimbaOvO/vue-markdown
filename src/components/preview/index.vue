@@ -5,8 +5,8 @@
             v-html="html"
         ></div>
         <!-- 预览图片-->
-        <div :class="['preview-img', previewImgModal ? 'active' : '']" @click="previewImgModal = false">
-            <img :src="previewImgSrc" :class="[previewImgMode]" alt=""/>
+        <div :class="['preview-img', previewImgModal ? 'active' : '']" @click="handleClickMask">
+            <img :src="previewImgSrc" :class="[previewImgMode, 'preview-filter']" alt=""/>
         </div>
     </div>
 </template>
@@ -94,7 +94,10 @@
                     }
                 }
                 setTimeout(() => {
-                    this.imgs = this.$refs.preview.querySelectorAll('img');
+                    const images = this.$refs.preview.querySelectorAll('img');
+                    this.imgs = images.filter(
+                        (img) => !img.className.includes('preview-filter')
+                    )
                     for (let i = 0, len = this.imgs.length; i < len; i++) {
                         this.imgs[i].onclick = () => {
                             const src = this.imgs[i].getAttribute('src');
@@ -117,6 +120,9 @@
                     this.previewImgSrc = src;
                     this.previewImgModal = true;
                 };
+            },
+            handleClickMask() {
+                this.previewImgModal = false
             }
         },
         watch: {
