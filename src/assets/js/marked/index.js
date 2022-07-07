@@ -975,6 +975,7 @@ Renderer.prototype.list = function (body, ordered, start) {
 
 Renderer.prototype.listitem = function (text) {
     const reg = /\<input.+\>/;
+    const test = '<p>'
     let className = '';
     if(reg.test(text)){
         className = 'list-item-checkbox';
@@ -982,7 +983,9 @@ Renderer.prototype.listitem = function (text) {
             className += ' list-item-checkbox-checked';
         }
     }
-    return `<li class="${className} ">${text}</li>\n`;
+    return text.includes(test)
+        ? `<li class="filter ${className}">${text}</li>\n`
+        : `<li class="point ${className} ">${text}</li>\n`;
 };
 
 Renderer.prototype.checkbox = function (checked) {
