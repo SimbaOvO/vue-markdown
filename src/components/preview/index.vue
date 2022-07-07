@@ -5,12 +5,8 @@
             v-html="html"
         ></div>
         <!-- 预览图片-->
-        <div :class="['preview-img', previewImgModal ? 'active' : '']">
-            <span
-                class="close icon-close iconfont"
-                @click="previewImgModal = false"
-            ></span>
-            <img :src="previewImgSrc" :class="[previewImgMode]" alt=""/>
+        <div :class="['preview-img', previewImgModal ? 'active' : '']" @click="handleClickMask">
+            <img :src="previewImgSrc" :class="[previewImgMode, 'preview-filter']" alt=""/>
         </div>
     </div>
 </template>
@@ -69,43 +65,38 @@
                 this.addImageClickListener();
             },
             addCopyListener() {// 监听复制操作
-                setTimeout(() => {
-                    const btns = document.querySelectorAll(
-                        '.code-block .copy-code'
-                    );
-                    this.btns = btns;
-                    for (let i = 0, len = btns.length; i < len; i++) {
-                        btns[i].onclick = () => {
-                            const code = btns[i].parentNode.querySelectorAll(
-                                'pre'
-                            )[0].innerText;
-                            const aux = document.createElement('input');
-                            aux.setAttribute('value', code);
-                            document.body.appendChild(aux);
-                            aux.select();
-                            document.execCommand('copy');
-                            document.body.removeChild(aux);
-                            this.$emit('on-copy', code);
-                        };
-                    }
-                }, 600);
+                const btns = document.querySelectorAll(
+                    '.code-block .copy-code'
+                );
+                this.btns = btns;
+                for (let i = 0, len = btns.length; i < len; i++) {
+                    btns[i].onclick = () => {
+                        const code = btns[i].parentNode.querySelectorAll(
+                            'pre'
+                        )[0].innerText;
+                        const aux = document.createElement('input');
+                        aux.setAttribute('value', code);
+                        document.body.appendChild(aux);
+                        aux.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(aux);
+                        this.$emit('on-copy', code);
+                    };
+                }
             },
             addImageClickListener() {// 监听查看大图
-                const {imgs = []} = this;
-                if (imgs.length > 0) {
-                    for (let i = 0, len = imgs.length; i < len; i++) {
-                        imgs[i].onclick = null;
-                    }
-                }
                 setTimeout(() => {
-                    this.imgs = this.$refs.preview.querySelectorAll('img');
+                    const images = this.$refs.preview.querySelectorAll('img');
+                    this.imgs = Array.prototype.slice.call(images).filter(
+                        (img) => !img.className.includes('preview-filter')
+                    )
                     for (let i = 0, len = this.imgs.length; i < len; i++) {
                         this.imgs[i].onclick = () => {
                             const src = this.imgs[i].getAttribute('src');
                             this.previewImage(src);
                         };
                     }
-                }, 600);
+                });
             },
             previewImage(src) {// 预览图片
                 const img = new Image();
@@ -121,6 +112,9 @@
                     this.previewImgSrc = src;
                     this.previewImgModal = true;
                 };
+            },
+            handleClickMask() {
+                this.previewImgModal = false
             }
         },
         watch: {
@@ -132,11 +126,11 @@
 </script>
 
 <style scoped lang="less">
-    @import "../../assets/font/iconfont.css";
-    @import "../../assets/css/theme";
-    @import "../../assets/css/index";
-    @import "../../assets/css/light";
-    @import "../../assets/css/dark";
-    @import "../../assets/css/one-dark";
-    @import "../../assets/css/github";
+@import "../../assets/font/iconfont.css";
+@import "../../assets/css/theme";
+@import "../../assets/css/index";
+@import "../../assets/css/light";
+@import "../../assets/css/dark";
+@import "../../assets/css/one-dark";
+@import "../../assets/css/github";
 </style>
