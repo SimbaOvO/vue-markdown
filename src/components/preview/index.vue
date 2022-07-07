@@ -95,7 +95,7 @@
                 }
                 setTimeout(() => {
                     const images = this.$refs.preview.querySelectorAll('img');
-                    this.imgs = images.filter(
+                    this.imgs = Array.prototype.slice.call(images).filter(
                         (img) => !img.className.includes('preview-filter')
                     )
                     for (let i = 0, len = this.imgs.length; i < len; i++) {
