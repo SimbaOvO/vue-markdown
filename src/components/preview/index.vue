@@ -5,11 +5,7 @@
             v-html="html"
         ></div>
         <!-- 预览图片-->
-        <div :class="['preview-img', previewImgModal ? 'active' : '']">
-            <span
-                class="close icon-close iconfont"
-                @click="previewImgModal = false"
-            ></span>
+        <div :class="['preview-img', previewImgModal ? 'active' : '']" @click="previewImgModal = false">
             <img :src="previewImgSrc" :class="[previewImgMode]" alt=""/>
         </div>
     </div>
