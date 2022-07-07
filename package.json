@@ -14,7 +14,7 @@
     ],
     "scripts": {
         "start": "webpack-dev-server --config ./config/webpack.dev.config.js --quite",
-        "build": "webpack --config ./config/webpack.config.js --quite && cp -R dist ~/Desktop/Vue-Blog/src/",
+        "build": "webpack --config ./config/webpack.config.js --quite",
         "analyzer": "cross-env analyzer=1 webpack --config ./config/webpack.config.js --quite",
         "docs": "cross-env docs_env=dev vuepress dev docs",
         "build:docs": "cross-env docs_env=prod vuepress build docs",
