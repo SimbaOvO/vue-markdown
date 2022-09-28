@@ -65,24 +65,26 @@
                 this.addImageClickListener();
             },
             addCopyListener() {// 监听复制操作
-                const btns = document.querySelectorAll(
-                    '.code-block .copy-code'
-                );
-                this.btns = btns;
-                for (let i = 0, len = btns.length; i < len; i++) {
-                    btns[i].onclick = () => {
-                        const code = btns[i].parentNode.querySelectorAll(
-                            'pre'
-                        )[0].innerText;
-                        const aux = document.createElement('input');
-                        aux.setAttribute('value', code);
-                        document.body.appendChild(aux);
-                        aux.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(aux);
-                        this.$emit('on-copy', code);
-                    };
-                }
+                setTimeout(() => {
+                    const btns = document.querySelectorAll(
+                        '.code-block .copy-code'
+                    );
+                    this.btns = btns;
+                    for (let i = 0, len = btns.length; i < len; i++) {
+                        btns[i].onclick = () => {
+                            const code = btns[i].parentNode.querySelectorAll(
+                                'pre'
+                            )[0].innerText;
+                            const aux = document.createElement('input');
+                            aux.setAttribute('value', code);
+                            document.body.appendChild(aux);
+                            aux.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(aux);
+                            this.$emit('on-copy', code);
+                        };
+                    }
+                })
             },
             addImageClickListener() {// 监听查看大图
                 setTimeout(() => {
